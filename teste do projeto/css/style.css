@@ -1,0 +1,13 @@
+*{
+    color: aliceblue;
+}
+input {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+body{
+    background-color: rgb(33, 33, 33);
+
+}
