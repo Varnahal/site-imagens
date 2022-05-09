@@ -6,12 +6,26 @@
 </head>
 <body>
 	<section>
-		<a href="exibir_produto.php">
+		<?php
+		require_once 'classes/Produto.php';
+		$p = new Produto('formulario_produtos','localhost','root','');
+		$dados_produtos = $p->BuscarProdutos();
+		if(empty($dados_produtos)){
+			echo 'nn tem nada aqui';
+		}else{
+			//var_dump($dados_produtos);
+			for ($i=0; $i <count($dados_produtos) ; $i++) { 
+				echo "<a href='exibir_produto.php?id={$dados_produtos[$i]['id_produto']}'>
 			<div>
-				<img src="imagens/295d5e781ffd2f97a73d47468c7c1775.jpg">
-				<h2>Calça Jeans</h2>
+				<img src='imagens/{$dados_produtos[$i]['fotocapa']}'>
+				<h2>{$dados_produtos[$i]['nome_produto']}</h2>
 			</div>
-		</a>
+		</a>";
+			}
+		}
+		
+		?>
+		
 	</section>
 </body>
 </html>

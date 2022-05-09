@@ -33,12 +33,38 @@ class Produto{
     }
     public function BuscarProdutos(){
         //buscar todos os produtos do banco de dados 
+        $cmd = $this->pdo->prepare("SELECT *,(SELECT nome_imagem FROM imagens WHERE fk_id_produto = produtos.id_produto LIMIT 1 ) AS fotocapa FROM produtos");
+        $cmd->execute();
+        if($cmd->rowCount()>0){
+            $dados = $cmd->fetchAll();
+        }else{
+            $dados = array();
+        }
+        return $dados;
     }
     public function BuscarProdutoPorId($id){
         //buscar um produto especifico usando o id
+        $cmd = $this->pdo->prepare("SELECT * FROM produtos WHERE id_produto = :id");
+        $cmd->bindValue(':id',$id);
+        $cmd->execute();
+        if($cmd->rowCount()>0){
+            $dados = $cmd->fetch();
+        }else{
+            $dados = array();
+        }
+        return $dados;
     }
     public function BuscarImagensPorId($id){
         //buscar imagens com base no id enviado
+        $cmd = $this->pdo->prepare("SELECT nome_imagem FROM imagens WHERE fk_id_produto = :id");
+        $cmd->bindValue(':id',$id);
+        $cmd->execute();
+        if($cmd->rowCount()>0){
+            $dados = $cmd->fetch();
+        }else{
+            $dados = array();
+        }
+        return $dados;
     }
 
 }
